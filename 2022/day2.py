@@ -45,16 +45,15 @@ def generate_game(p1: Shapes, outcome: str) -> tuple[int, Shapes]:
             return (6, Shapes[p1.value.loses])
 
 def play_round(input: str) -> int:
-    round = input.split(" ")
-    p1 = shapes_p1[round[0]]
-    p2 = shapes_p2[round[1]]
+    [p1, _, p2]= input.partition(" ")
+    p1 = shapes_p1[p1]
+    p2 = shapes_p2[p2]
 
     return play_game(p1, p2) + p2.value.score()
 
 def play_round_2(input: str) -> int:
-    round = input.split(" ")
-    p1 = shapes_p1[round[0]]
-    outcome_code = round[1]
+    [p1, _, outcome_code]= input.partition(" ")
+    p1 = shapes_p1[p1]
     game_outcome = generate_game(p1, outcome_code)
 
     return game_outcome[0] + game_outcome[1].value.score()
