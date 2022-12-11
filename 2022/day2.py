@@ -2,22 +2,19 @@ import aocd
 from enum import Enum
 
 class Shape:
-    def __init__(self, name, value, beats, loses):
+    def __init__(self, name, score, beats, loses):
         self.name = name
-        self.value = value 
+        self.score = score 
         self.beats = beats 
         self.loses = loses
 
     def __gt__(self, other):
         return other.name == self.beats
 
-    def score(self):
-        return ord(self.value) - 64
-
 class Shapes(Enum):
-    Rock = Shape("Rock", "A", "Scissors", "Paper") 
-    Paper = Shape("Paper", "B", "Rock", "Scissors")
-    Scissors = Shape("Scissors", "C", "Paper", "Rock")
+    Rock = Shape("Rock", 1, "Scissors", "Paper") 
+    Paper = Shape("Paper", 2, "Rock", "Scissors")
+    Scissors = Shape("Scissors", 3, "Paper", "Rock")
 
     def __gt__(self, other):
         return self.value > other.value
@@ -49,14 +46,14 @@ def play_round(input: str) -> int:
     p1 = shapes_p1[p1]
     p2 = shapes_p2[p2]
 
-    return play_game(p1, p2) + p2.value.score()
+    return play_game(p1, p2) + p2.value.score
 
 def play_round_2(input: str) -> int:
     [p1, _, outcome_code]= input.partition(" ")
     p1 = shapes_p1[p1]
     game_outcome = generate_game(p1, outcome_code)
 
-    return game_outcome[0] + game_outcome[1].value.score()
+    return game_outcome[0] + game_outcome[1].value.score
 
 print("Part 1:", sum([play_round(round) for round in strategy]))
 print("Part 2:", sum([play_round_2(round) for round in strategy]))
