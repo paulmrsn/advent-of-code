@@ -69,11 +69,12 @@ def get_dirs(data: str):
     return dirs
 
 dirs = get_dirs(data)
-print("Part 1:", sum(list(filter(lambda size : size < 100000, [dir.get_size() for (_, dir) in dirs.items()]))))
+dir_sizes = [dir.get_size() for dir in dirs.values()]
+print("Part 1:", sum(size for size in dir_sizes if size < 100000))
 
 total_size = 70000000
 required_for_upgrade = 30000000
 used = dirs["root"].get_size()
 
 missing = required_for_upgrade - (total_size - used)
-print("Part 2:", min(list(filter(lambda size : size >= missing, [dir.get_size() for (_, dir) in dirs.items()]))))
+print("Part 2:", min(size for size in dir_sizes if size >= missing))
